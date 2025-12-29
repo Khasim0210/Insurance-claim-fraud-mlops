@@ -1,0 +1,9 @@
+streamlit
+pandas==1.5.3
+scikit-learn==1.0.2
+joblib
+sqlalchemy
+mlflow
+dagshub
+ydata-profiling==4.6.4
+matplotlib
