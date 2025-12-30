@@ -21,10 +21,10 @@ This project covers **data engineering, model training, experiment tracking, thr
 Insurance fraud causes significant financial losses.  
 This project builds a **production-ready ML system** that predicts whether an insurance claim is **fraudulent (Y/N)** using structured claim and policy data.
 
-### Key highlights:
+### Key Highlights
 - Fully normalized **SQL (3NF) data model**
 - Multiple ML experiments tracked using **MLflow**
-- **Threshold tuning** for business-aligned decision making
+- **Threshold tuning** for business-aligned decisions
 - **Streamlit web app** for real-time predictions
 - Deployed on **Render Cloud**
 
@@ -47,10 +47,10 @@ This project builds a **production-ready ML system** that predicts whether an in
 
 4. **Experiment Tracking**
    - MLflow + DagsHub
-   - Metrics: F1-score (macro), ROC-AUC
+   - Metrics: Macro F1-score, ROC-AUC
 
 5. **Threshold Optimization**
-   - Business-driven fraud threshold tuning
+   - Business-driven fraud probability threshold
 
 6. **Final Model**
    - Best model + threshold saved as a reusable artifact
@@ -64,7 +64,7 @@ This project builds a **production-ready ML system** that predicts whether an in
 - Final model selected based on **macro F1 + recall tradeoff**
 
 📊 **MLflow UI (via DagsHub)**  
-https://dagshub.com/Khasim0210/insurance-claim-fraud-mlops.mlflow
+👉 https://dagshub.com/Khasim0210/insurance-claim-fraud-mlops.mlflow
 
 ---
 
@@ -85,3 +85,32 @@ The app supports two modes:
 
 ## 📂 Repository Structure
 
+```text
+├── src/                     # Data & ML pipeline scripts
+│   ├── 01_database_setup.py
+│   ├── 02_load_data_to_db.py
+│   ├── 03_sql_join_to_pandas.py
+│   ├── 04_train_test_split.py
+│   ├── 07_experiment_01_logreg_mlflow.py
+│   ├── 08_experiment_02_tree_models_mlflow.py
+│   ├── 09_threshold_tuning.py
+│   ├── 10_train_final_model.py
+│   └── 11_predict.py
+│
+├── streamlit.app/
+│   └── app.py               # Streamlit UI
+│
+├── models/
+│   └── final_model.joblib   # Trained model bundle
+│
+├── data/
+│   └── sample.csv           # Sample input CSV for demo
+│
+├── reports/
+│   ├── data_profile_report.html
+│   └── correlation_matrix.png
+│
+├── requirements.txt
+├── runtime.txt
+├── render.yaml
+└── README.md
