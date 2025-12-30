@@ -205,3 +205,12 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Data & generated artifacts
+data/
+db/
+artifacts/
+mlruns/
+.venv/
+__pycache__/
+.DS_Store
