@@ -1,6 +1,7 @@
 # 🛡️ Insurance Claim Fraud Detection (MLOps)
 
 [![Live App](https://img.shields.io/badge/Live-App-brightgreen)](https://insurance-claim-fraud-mlops.onrender.com)
+
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![MLflow](https://img.shields.io/badge/MLflow-Tracking-blue)
 ![Streamlit](https://img.shields.io/badge/Streamlit-App-red)
