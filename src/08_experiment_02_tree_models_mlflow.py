@@ -13,7 +13,8 @@ from sklearn.metrics import f1_score, confusion_matrix, classification_report
 import mlflow
 import mlflow.sklearn
 
-from src.12_feature_engineering import add_engineered_features
+from src.feature_engineering import add_engineered_features
+
 
 
 
