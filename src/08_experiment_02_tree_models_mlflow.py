@@ -13,14 +13,22 @@ from sklearn.metrics import f1_score, confusion_matrix, classification_report
 import mlflow
 import mlflow.sklearn
 
+from src.12_feature_engineering import add_engineered_features
+
+
+
 # -----------------------
 # Load splits
 # -----------------------
 data_dir = Path("data/processed")
 X_train = pd.read_csv(data_dir / "X_train.csv")
-X_test = pd.read_csv(data_dir / "X_test.csv")
+X_test  = pd.read_csv(data_dir / "X_test.csv")
 y_train = pd.read_csv(data_dir / "y_train.csv").squeeze("columns")
-y_test = pd.read_csv(data_dir / "y_test.csv").squeeze("columns")
+y_test  = pd.read_csv(data_dir / "y_test.csv").squeeze("columns")
+
+# ✅ ADD FEATURE ENGINEERING HERE
+X_train = add_engineered_features(X_train)
+X_test  = add_engineered_features(X_test)
 
 # -----------------------
 # Preprocess (trees don't need scaling)
@@ -99,9 +107,7 @@ def run_model(model_name, model, param_grid):
         print("Test F1 Macro:", f1_macro)
         print("Confusion Matrix:\n", cm)
 
-# -----------------------
 # Random Forest
-# -----------------------
 run_model(
     "Exp02_RandomForest",
     RandomForestClassifier(random_state=42),
@@ -112,9 +118,7 @@ run_model(
     }
 )
 
-# -----------------------
 # Gradient Boosting
-# -----------------------
 run_model(
     "Exp02_GradientBoosting",
     GradientBoostingClassifier(random_state=42),
@@ -125,9 +129,7 @@ run_model(
     }
 )
 
-# -----------------------
-# HistGradientBoosting (strong xgboost-like)
-# -----------------------
+# HistGradientBoosting
 run_model(
     "Exp02_HistGradientBoosting",
     HistGradientBoostingClassifier(random_state=42),

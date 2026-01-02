@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 from pathlib import Path
 
 from sklearn.model_selection import StratifiedKFold, GridSearchCV
@@ -13,14 +12,22 @@ from sklearn.metrics import f1_score, classification_report, confusion_matrix
 import mlflow
 import mlflow.sklearn
 
+from src.12_feature_engineering import add_engineered_features
+
+
+
 # -----------------------
 # Load train/test splits
 # -----------------------
 data_dir = Path("data/processed")
 X_train = pd.read_csv(data_dir / "X_train.csv")
-X_test = pd.read_csv(data_dir / "X_test.csv")
+X_test  = pd.read_csv(data_dir / "X_test.csv")
 y_train = pd.read_csv(data_dir / "y_train.csv").squeeze("columns")
-y_test = pd.read_csv(data_dir / "y_test.csv").squeeze("columns")
+y_test  = pd.read_csv(data_dir / "y_test.csv").squeeze("columns")
+
+# ✅ ADD FEATURE ENGINEERING HERE (before feature typing + preprocessing)
+X_train = add_engineered_features(X_train)
+X_test  = add_engineered_features(X_test)
 
 # -----------------------
 # Define feature types
@@ -82,32 +89,26 @@ grid = GridSearchCV(
 # -----------------------
 mlflow.set_experiment("insurance-claim-fraud-mlops")
 
-
 with mlflow.start_run(run_name="logreg_gridsearch_cv3"):
-    # Fit
     grid.fit(X_train, y_train)
 
     best_model = grid.best_estimator_
     best_params = grid.best_params_
     best_cv = grid.best_score_
 
-    # Predict test
     y_pred = best_model.predict(X_test)
 
     f1_macro = f1_score(y_test, y_pred, average="macro")
     f1_pos = f1_score((y_test == "Y").astype(int), (y_pred == "Y").astype(int))
 
-    # Metrics
     mlflow.log_params(best_params)
     mlflow.log_metric("cv_f1_macro_mean", float(best_cv))
     mlflow.log_metric("test_f1_macro", float(f1_macro))
     mlflow.log_metric("test_f1_positive_class", float(f1_pos))
 
-    # Confusion matrix + report
     cm = confusion_matrix(y_test, y_pred, labels=["N", "Y"])
     report = classification_report(y_test, y_pred)
 
-    # Save artifacts
     out_dir = Path("artifacts/exp01")
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -120,7 +121,6 @@ with mlflow.start_run(run_name="logreg_gridsearch_cv3"):
     mlflow.log_artifact(str(cm_path))
     mlflow.log_artifact(str(rep_path))
 
-    # Save model
     mlflow.sklearn.log_model(best_model, artifact_path="model")
 
     print("✅ Best Params:", best_params)

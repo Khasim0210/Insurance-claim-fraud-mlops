@@ -11,12 +11,20 @@ from sklearn.ensemble import GradientBoostingClassifier
 import mlflow
 import mlflow.sklearn
 
+from src.12_feature_engineering import add_engineered_features
+
+
+
+
 BEST_THRESHOLD = 0.10
 
 # Load full train data
 data_dir = Path("data/processed")
 X_train = pd.read_csv(data_dir / "X_train.csv")
 y_train = pd.read_csv(data_dir / "y_train.csv").squeeze("columns")
+
+# ✅ ADD FEATURE ENGINEERING HERE
+X_train = add_engineered_features(X_train)
 
 # Feature types
 numeric_features = X_train.select_dtypes(include=["int64", "float64"]).columns.tolist()
