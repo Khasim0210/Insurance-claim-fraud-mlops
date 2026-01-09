@@ -115,3 +115,13 @@ The app supports two modes:
 ├── runtime.txt
 ├── render.yaml
 └── README.md
+
+
+
+## 📊 End-to-End MLOps Workflow
+
+![MLOps Step Workflow](docs/images/mlops-step-workflow.png)
+
+## ☁️ Deployment Architecture (Render – Docker – Streamlit)
+
+![Render Docker Streamlit Architecture](docs/images/render-docker-streamlit-mindmap.png)
