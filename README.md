@@ -58,6 +58,15 @@ This project builds a **production-ready ML system** that predicts whether an in
 
 ---
 
+## 📊 End-to-End MLOps Workflow
+
+![MLOps Step Workflow](docs/images/mlops-step-workflow.png)
+
+## ☁️ Deployment Architecture (Render – Docker – Streamlit)
+
+![Render Docker Streamlit Architecture](docs/images/render-docker-streamlit-mindmap.png)
+
+---
 ## 🧪 Experiments & Tracking
 
 - All experiments tracked in **MLflow**
